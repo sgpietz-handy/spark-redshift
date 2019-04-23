@@ -37,9 +37,6 @@ import org.apache.spark.sql.types.{DataType, StructType}
  * no API stability is guaranteed.
  */
 private[redshift] class RedshiftFileFormat extends FileFormat {
-  override def supportDataType(dataType: DataType, isReadPath: Boolean): Boolean = true
-  def supportDataType(dataType: DataType): Boolean = true
-  def supportDataType(dataType: String): Boolean = true
 
   override def inferSchema(
       sparkSession: SparkSession,

@@ -96,6 +96,7 @@ private[redshift] class RedshiftWriter(
     val fixedUrl = Utils.fixS3Url(manifestUrl)
     val format = params.tempFormat match {
       case "AVRO" => "AVRO 'auto'"
+      case "PARQUET" => "PARQUET"
       case csv if csv == "CSV" || csv == "CSV GZIP" => csv + s" NULL AS '${params.nullString}'"
     }
     s"COPY ${params.table.get} FROM '$fixedUrl' CREDENTIALS '$credsString' FORMAT AS " +
@@ -292,6 +293,8 @@ private[redshift] class RedshiftWriter(
           .option("escape", "\"")
           .option("nullValue", nullString)
           .option("compression", "gzip")
+      case "PARQUET" =>
+        writer.format("parquet")
     }).save(tempDir)
 
     if (nonEmptyPartitions.value.isEmpty) {
