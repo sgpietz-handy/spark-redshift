@@ -41,7 +41,7 @@ private[redshift] object Parameters {
     "postactions" -> ";"
   )
 
-  val VALID_TEMP_FORMATS = Set("AVRO", "CSV", "CSV GZIP", "PARQUET")
+  val VALID_TEMP_FORMATS = Set("AVRO", "JSON", "CSV", "CSV GZIP", "PARQUET")
 
   /**
    * Merge user parameters with the defaults, preferring user parameters if specified
