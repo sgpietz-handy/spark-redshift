@@ -46,7 +46,7 @@ object SparkRedshiftBuild extends Build {
       name := "spark-redshift",
       organization := "com.databricks",
       scalaVersion := "2.11.7",
-      crossScalaVersions := Seq("2.10.5", "2.11.7"),
+      crossScalaVersions := Seq("2.10.5", "2.11.9"),
       sparkVersion := "2.4.0",
       testSparkVersion := sys.props.get("spark.testVersion").getOrElse(sparkVersion.value),
       testSparkAvroVersion := sys.props.get("sparkAvro.testVersion").getOrElse("3.0.0"),
