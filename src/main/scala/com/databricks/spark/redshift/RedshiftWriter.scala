@@ -96,7 +96,7 @@ private[redshift] class RedshiftWriter(
     val fixedUrl = Utils.fixS3Url(manifestUrl)
     val format = params.tempFormat match {
       case "AVRO" => "AVRO 'auto'"
-      case "JSON" => s"JSON 'auto' NULL AS '${params.nullString}' ACCEPTINVCHARS"
+      case "JSON" => s"JSON 'auto' NULL AS '${params.nullString}' ACCEPTINVCHARS '\N'"
       case "PARQUET" => "PARQUET"
       case csv if csv == "CSV" || csv == "CSV GZIP" => csv + s" NULL AS '${params.nullString}'"
     }
@@ -298,6 +298,8 @@ private[redshift] class RedshiftWriter(
         writer.format("parquet")
       case "JSON" =>
         writer.format("json")
+          .option("allowUnquotedControlChars", "true")
+          .option("allowBackslashEscapingAnyCharacter", "true")
     }).save(tempDir)
 
     if (nonEmptyPartitions.value.isEmpty) {
