@@ -96,7 +96,7 @@ private[redshift] class RedshiftWriter(
     val fixedUrl = Utils.fixS3Url(manifestUrl)
     val format = params.tempFormat match {
       case "AVRO" => "AVRO 'auto'"
-      case "JSON" => s"JSON 'auto' NULL AS '\\0' ACCEPTINVCHARS"
+      case "JSON" => s"JSON 'auto' ACCEPTINVCHARS"
       case "PARQUET" => "PARQUET"
       case csv if csv == "CSV" || csv == "CSV GZIP" => csv + s" NULL AS '${params.nullString}'"
     }
